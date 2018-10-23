@@ -162,7 +162,7 @@
         this.timer = setTimeout (() => {
           clearTimeout(this.timer)
           this.time = [2, 60, 60]
-        }, 2 * 60 * 60 * 1000) 
+        }, 2 * 60 * 60 * 1000)
       }
     },
     computed: {
@@ -276,9 +276,9 @@
         height px2rem(110)
         a
           color #333333
-          span 
+          span
             font-size px2rem(32)
-          i 
+          i
             display inline-block
             width px2rem(30)
             height px2rem(30)
@@ -321,7 +321,7 @@
                   font-size px2rem(28)
                   line-height px2rem(34)
                   margin-bottom px2rem(6)
-              >img 
+              >img
                 width 100%
                 height 100%
     .move
@@ -334,14 +334,14 @@
         background-size px2rem(750) px2rem(260)
         a
           color #8ba0b6
-        .all 
+        .all
           background #d8e5f1
       &.hot
         background-image url('../../assets/images/hot.png')
         background-size px2rem(750) px2rem(260)
         a
           color #B4A078
-        .all 
+        .all
           background #F4E9CB
       .moveCont
         position absolute
@@ -360,9 +360,9 @@
           height px2rem(56)
           font-size 0
           line-height px2rem(56)
-          span 
+          span
             font-size px2rem(28)
-          i 
+          i
             display inline-block
             width px2rem(10)
             height px2rem(22)
@@ -421,8 +421,8 @@
         width px2rem(320)
         height px2rem(320)
         position relative
-        float right 
-        img 
+        float right
+        img
           width 100%
           height 100%
         .price
@@ -438,14 +438,14 @@
           display flex
           flex-direction column
           justify-content center
-          span 
+          span
             font-size px2rem(24)
     .weal
       width 100%
       height px2rem(300)
       margin-bottom px2rem(20)
       overflow hidden
-      img 
+      img
         width 100%
     .copyright
       border-top 1px solid rgba(0,0,0,.15);
@@ -468,6 +468,6 @@
           margin-top px2rem(36)
           color #999999
           line-height px2rem(32)
-          span 
+          span
             font-size px2rem(24)
 </style>

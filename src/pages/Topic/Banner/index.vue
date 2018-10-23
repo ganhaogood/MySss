@@ -1,26 +1,47 @@
 <template>
   <div class="wapper">
-    <swiper>
-      <swiper-slide>
+    <swiper ref="mySwiper" :options="swiperOption">
+      <swiper-slide v-for="(item, index) in data" :key="index">
         <a href="javascript:;">
           <div class="content">
-            <div class="subTitle">sss</div>
-            <div class="title">sss</div>
-            <div class="desc">ssss</div>
+            <div class="subTitle">{{item.subTitle}}</div>
+            <div class="title">{{item.title}}</div>
+            <div class="desc">{{item.desc}}</div>
           </div>
-          <img alt="">
+          <img v-lazy="item.picUrl" alt="">
         </a>
       </swiper-slide>
     </swiper>
   </div>
 </template>
+
 <script>
   export default {
-    data() {
-      return {}
+    data () {
+      return {
+        swiperOption: {
+          slidesPerView: 1.15,
+          centeredSlides: true,
+          onInit: function (swiper) {
+            swiper.slides[1].className = 'swiper-slide swiper-slide-active'
+          },
+          loop: true,
+          spaceBetween: 20,
+          autoplay: true
+        }
+      }
+    },
+    computed: {
+      swpier () {
+        return this.$refs.mySwiper.swpier
+      }
+    },
+    props: {
+      data: Array
     }
   }
 </script>
+
 <style lang='stylus' rel='stylesheet/stylus' scoped>
   @import '../../../common/stylus/mixins.styl'
   .wapper

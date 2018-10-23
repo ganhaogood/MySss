@@ -2,48 +2,42 @@
   <div class="topic">
     <GoTop></GoTop>
     <Header></Header>
-    <Banner/>
-    <TopicList/>
-    <Recommend/>
-    <TopicShow/>
-    <Recommend/>
+    <Banner :data="topicData.banner"></Banner>
+    <TopicList :data="topicData.column"></TopicList>
+    <Recommend :data="topicData.recommend"></Recommend>
+    <TopicShow :data="topicData.tenfifteen"></TopicShow>
+    <Recommend :data="topicData.zhen"></Recommend>
     <section class="look">
       <Title title="严选LOOK"></Title>
       <a href="javascript:;">
-        <img alt="">
+        <img v-lazy="topicData.yxLook.picUrl" alt="">
         <div class="authorContainer">
           <div class="author">
             <div class="authorPic">
-              <img alt="">
+              <img v-lazy="topicData.yxLook.avatar" alt="">
             </div>
-            <div class="authorName">?????</div>
+            <div class="authorName">{{topicData.yxLook.nickname}}</div>
           </div>
         </div>
-        <div class="desc">??????????</div>
+        <div class="desc">{{topicData.yxLook.content}}</div>
       </a>
     </section>
-    <MoveTopic/>
+    <MoveTopic :data="topicData.yxWeek"></MoveTopic>
   </div>
 </template>
 
-
 <script>
-  import Banner from "./Banner"
-  import TopicList from "./TopicList"
-  import Recommend from "./Recommend"
-  import TopicShow from "./TopicShow"
-  import MoveTopic from "./MoveTopic"
-  import Title from "../../components/Title"
-  import Header from "../../components/Header"
-  import GoTop from "../../components/GoTop"
-
-
-
+  import {mapState} from 'vuex'
+  import Banner from './Banner'
+  import TopicList from './TopicList'
+  import Recommend from './Recommend'
+  import TopicShow from './TopicShow'
+  import Title from '../../components/Title'
+  import Header from '../../components/Header'
+  import MoveTopic from './MoveTopic'
+  import GoTop from '../../components/GoTop'
   export default {
-    data() {
-      return {}
-    },
-    components:{
+    components: {
       Banner,
       TopicList,
       Recommend,
@@ -52,9 +46,24 @@
       Header,
       MoveTopic,
       GoTop
+    },
+    mounted () {
+      this.$store.dispatch('getTopicData')
+    },
+    computed: {
+      ...mapState(['topicData'])
+    },
+    created () {
+      this.resetTop()
+    },
+    methods: {
+      resetTop () {
+        window.scrollTo(0, 0)
+      }
     }
   }
 </script>
+
 <style lang='stylus' rel='stylesheet/stylus' scoped>
   @import '../../common/stylus/mixins.styl'
   .topic
