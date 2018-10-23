@@ -7,19 +7,20 @@
       </a>
     </header>
     <div class="subjects">
-      <swiper :options="swiperOption">
+      <swiper :options="swiperOption" ref="mySwiper">
         <swiper-slide v-for="item in data" :key="item.id">
-          <img alt="">
+          <img v-lazy="item.itemPicUrl" alt="">
           <div class="line">
-            <h4 class="title">0000</h4>
-            <span class="price">???元起</span>
+            <h4 class="title">{{item.title}}</h4>
+            <span class="price">{{item.priceInfo}}元起</span>
           </div>
-          <div class="desc">....</div>
+          <div class="desc">{{item.subtitle}}</div>
         </swiper-slide>
       </swiper>
     </div>
   </section>
 </template>
+
 <script>
   export default {
     props: {
@@ -27,15 +28,21 @@
     },
     data () {
       return {
-        swiperOption: {
+         swiperOption: {
           slidesPerView: 1.2
         }
+      }
+    },
+    computed: {
+      swpier () {
+        return this.$refs.mySwiper.swpier
       }
     }
   }
 </script>
+
 <style lang='stylus' rel='stylesheet/stylus' >
-  @import '../../../common/stylus/mixins.styl'
+@import '../../../common/stylus/mixins.styl'
   header
     display flex
     flex-flow row nowrap
@@ -44,9 +51,9 @@
     height px2rem(110)
     a
       color #333333
-      span
+      span 
         font-size px2rem(32)
-      i
+      i 
         display inline-block
         width px2rem(30)
         height px2rem(30)
@@ -61,7 +68,7 @@
         width px2rem(575)
         box-sizing border-box
         padding-right px2rem(21)
-        img
+        img 
           width 100%
           height px2rem(322)
           border-radius 8px

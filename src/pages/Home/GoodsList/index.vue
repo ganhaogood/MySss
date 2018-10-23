@@ -1,14 +1,14 @@
 <template>
   <div class="goodsWrap">
-    <swiper>
+    <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide v-for="item in data" :key="item.id">
         <a href="javascript:;">
           <div class="image">
-            <img alt="">
+            <img v-lazy="item.primaryPicUrl" alt="">
           </div>
-          <div class="name">???</div>
-          <div class="nameDoc">???</div>
-          <div class="price">¥???</div>
+          <div class="name">{{item.name}}</div>
+          <div class="nameDoc">{{item.simpleDesc}}</div>
+          <div class="price">¥{{item.retailPrice}}</div>
         </a>
       </swiper-slide>
       <swiper-slide>
@@ -19,21 +19,28 @@
     </swiper>
   </div>
 </template>
+
 <script>
   export default {
-    props:{
-      data:Array
+    props: {
+      data: Array
     },
-    data() {
+    data () {
       return {
-        swiperOption: {
+         swiperOption: {
           slidesPerView: 2.42,
           spaceBetween: 40
         }
       }
+    },
+    computed: {
+      swpier () {
+        return this.$refs.mySwiper.swpier
+      }
     }
   }
 </script>
+
 <style lang='stylus' rel='stylesheet/stylus'>
   @import '../../../common/stylus/mixins.styl'
   .goodsWrap
@@ -52,7 +59,7 @@
           height px2rem(280)
           background #f4f4f4
           z-index 0
-          img
+          img 
             width 100%
             height 100%
         .name

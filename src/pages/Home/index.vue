@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <GoTop/>
+    <GoTop></GoTop>
     <section class="head">
       <header>
         <div class="logo"></div>
         <div class="search">
           <i></i>
-          <span>搜索商品，共10000件</span>
+          <span>搜索商品, 共9789款好物</span>
         </div>
       </header>
-      <ListScroll/>
+      <list-scroll></list-scroll>
     </section>
-    <Banner/>
+    <Banner></Banner>
     <div class="explain">
       <div class="expItem">
         <i></i>
@@ -35,13 +35,13 @@
       </header>
       <div class="goods">
         <ul>
-          <li>
+          <li v-for="(item, index) in homeData.tagList" :key="item.id" v-if="index<=3">
             <a href="javascipt:;">
               <div class="ctn">
-                <h4 class="title">sss</h4>
-                <span class="proce1">vvv</span><span class="proce2">元起</span>
+                <h4 class="title">{{item.name}}</h4>
+                <span class="proce1">{{item.floorPrice}}</span><span class="proce2">元起</span>
               </div>
-              <img  src="../../assets/images/cart.png" alt="img">
+              <img v-lazy="item.picUrl" alt="img">
             </a>
           </li>
         </ul>
@@ -57,7 +57,7 @@
           </div>
         </a>
       </div>
-      <GoodsList/>
+      <GoodsList :data="homeData.newItemNewUserList"></GoodsList>
     </section>
     <section class="indexFloor">
       <div class="move hot">
@@ -69,22 +69,22 @@
           </div>
         </a>
       </div>
-      <GoodsList/>
+      <GoodsList :data="homeData.popularItemList"></GoodsList>
     </section>
-    <countdown>
+    <countdown :time="resetTime * 1000"  v-bind:auto-start="false" ref="countdown">
       <template slot-scope="props">
         <div class="countDown">
           <a href="javascript:;">
             <div class="itemLeft">
               <div class="title">严选限时购</div>
               <div class="countNum">
-                <span class="time">...</span>
+                <span class="time">{{ props.hours }}</span>
                 <span class="colon">:</span>
-                <span class="time">...</span>
+                <span class="time">{{ props.minutes }}</span>
                 <span class="colon">:</span>
-                <span class="time">...</span>
+                <span class="time">{{ props.seconds }}</span>
               </div>
-              <div class="nextTitle">下一场 00:00  开始</div>
+              <div class="nextTitle">下一场 22:00  开始</div>
             </div>
             <div class="itemRight">
               <img src="../../assets/images/test2.png" alt="">
@@ -102,8 +102,8 @@
         <img src="../../assets/images/move.jpg" alt="">
       </a>
     </div>
-    <Subjects/>
-    <GoodsShow/>
+    <Subjects :data="homeData.topicList"></Subjects>
+    <GoodsShow :data="homeData.cateList"></GoodsShow>
     <div class="copyright">
       <div class="content">
         <div class="bd">
@@ -118,32 +118,84 @@
       </div>
     </div>
   </div>
-
-
 </template>
+
 <script>
+  import {mapState} from 'vuex'
+  import ListScroll from './ListScroll'
   import Banner from './Banner'
   import GoodsList from './GoodsList'
-  import GoodsShow from './GoodsShow'
-  import ListScroll from './ListScroll'
-  import GoTop from '../../components/GoTop'
   import Subjects from './Subjects'
-
-
-
+  import GoodsShow from './GoodsShow'
+  import GoTop from '../../components/GoTop'
   export default {
-    components:{
+    components: {
+      ListScroll,
       Banner,
       GoodsList,
+      Subjects,
       GoodsShow,
-      ListScroll,
-      GoTop,
-      Subjects
+      GoTop
+    },
+    data () {
+      return {
+        time: [2, 60, 60]
+      }
+    },
+    created () {
+      this.resetTop()
+    },
+    mounted () {
+      this.$store.dispatch('getHomeData', () => {
+        this.$nextTick(() => {
+          this._resetTime()
+        })
+      })
+      this.$store.dispatch('getTopicData')
+      this.$refs.countdown.start()
+    },
+    methods: {
+      resetTop () {
+        window.scrollTo(0, 0)
+      },
+      _resetTime () {
+        this.timer = setTimeout (() => {
+          clearTimeout(this.timer)
+          this.time = [2, 60, 60]
+        }, 2 * 60 * 60 * 1000) 
+      }
+    },
+    computed: {
+      ...mapState(['homeData']),
+      resetTime: {
+        get: function () {
+          let arr = []
+          let result = 1
+          for (const i in this.time) {
+            if (this.time[i] !== 0) {
+              arr.push(this.time[i])
+            }
+          }
+          arr.forEach(item => {
+            result *= item
+          })
+          return result
+        },
+        set: function () {
+            let result = 1
+            this.time.forEach(item => {
+              result *= item
+            })
+            console.log(result)
+            return result
+        }
+      }
     }
   }
 </script>
+
 <style lang='stylus' rel='stylesheet/stylus' scoped>
-  @import '../../common/stylus/mixins.styl'
+@import '../../common/stylus/mixins.styl'
   .indexFloor
     background #ffffff
   .home
@@ -224,9 +276,9 @@
         height px2rem(110)
         a
           color #333333
-          span
+          span 
             font-size px2rem(32)
-          i
+          i 
             display inline-block
             width px2rem(30)
             height px2rem(30)
@@ -269,7 +321,7 @@
                   font-size px2rem(28)
                   line-height px2rem(34)
                   margin-bottom px2rem(6)
-              >img
+              >img 
                 width 100%
                 height 100%
     .move
@@ -282,14 +334,14 @@
         background-size px2rem(750) px2rem(260)
         a
           color #8ba0b6
-        .all
+        .all 
           background #d8e5f1
       &.hot
         background-image url('../../assets/images/hot.png')
         background-size px2rem(750) px2rem(260)
         a
           color #B4A078
-        .all
+        .all 
           background #F4E9CB
       .moveCont
         position absolute
@@ -308,9 +360,9 @@
           height px2rem(56)
           font-size 0
           line-height px2rem(56)
-          span
+          span 
             font-size px2rem(28)
-          i
+          i 
             display inline-block
             width px2rem(10)
             height px2rem(22)
@@ -369,8 +421,8 @@
         width px2rem(320)
         height px2rem(320)
         position relative
-        float right
-        img
+        float right 
+        img 
           width 100%
           height 100%
         .price
@@ -386,14 +438,14 @@
           display flex
           flex-direction column
           justify-content center
-          span
+          span 
             font-size px2rem(24)
     .weal
       width 100%
       height px2rem(300)
       margin-bottom px2rem(20)
       overflow hidden
-      img
+      img 
         width 100%
     .copyright
       border-top 1px solid rgba(0,0,0,.15);
@@ -416,6 +468,6 @@
           margin-top px2rem(36)
           color #999999
           line-height px2rem(32)
-          span
+          span 
             font-size px2rem(24)
 </style>
