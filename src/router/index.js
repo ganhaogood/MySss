@@ -50,7 +50,7 @@ export default new Router({
       path: '/personal',
       component: Personal,
       meta: {
-        showFooter: false
+        showFooter: true
       }
     }
   ]

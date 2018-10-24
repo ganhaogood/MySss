@@ -1,21 +1,21 @@
 <template>
-  <div class="listDetail">
+  <div class="listDetail" ref="scroll" :class="{'anim' : anim === true}">
     <div class="warp">
       <div class="banner">
-        <img alt="">
+        <img v-lazy="navDetail.wapBannerUrl" alt="">
       </div>
       <div class="detailTit">
           <span class="text">
-            <span>嗯嗯</span>
+            <span>{{navDetail.name}}</span>
             <span>分类</span>
           </span>
       </div>
       <section class="detail">
         <ul class="list">
-          <li class="item">
+          <li class="item" v-for="(item) in navDetail.subCateList" :key="index">
             <a href="javascript:;">
-              <img alt="">
-              <span>恩更</span>
+              <img v-lazy="item.wapBannerUrl" alt="">
+              <span>{{item.name}}</span>
             </a>
           </li>
         </ul>
@@ -25,12 +25,27 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+  import BScroll from 'better-scroll'
   export default {
     data () {
       return {
+        anim:false
 
       }
-  }
+    },
+    mounted () {
+      this.$store.dispatch('getNavDetail', () => {
+        this.$nextTick(() => {
+          this._initScroll()
+        })
+      })
+    },
+    computed: {
+      ...mapState(['navDetail'])
+    }
+
+
   }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
   <div class="listMenu">
-    <div class="inner">
+    <div class="inner" ref="scroll">
       <ul>
-        <li class="item">
-          <a href="javascript:;">name</a>
+        <li class="item" v-for="(name,index) in navList" :key="index" @click="currentIndex(index)" :class="{'active' : navIndex === index}">
+          <a href="javascript:;">{{name}}</a>
         </li>
       </ul>
     </div>
@@ -11,7 +11,36 @@
 </template>
 
 <script>
+  import {mapState} from "vuex"
+  import BScroll from "better-scroll"
+
+
   export default {
+    mounted(){
+      this.$store.dispatch("getNavList",()=>{
+        this.$nextTick(()=>{
+          this._initScroll()
+        })
+      })
+    },
+    computed: {
+      ...mapState(['navList', 'navIndex'])
+    },
+    methods:{
+      _initScroll(){
+        new BScroll(this.$refs.srcoll,{
+          click:true,
+          startY:0
+        })
+      },
+      currentIndex (index) {
+        this.$store.dispatch('setNavIndex',index)
+        this.$store.dispatch('getNavDetail')
+      }
+    }
+
+
+
   }
 </script>
 

@@ -36,18 +36,24 @@
     </section>
   </div>
 </template>
+
 <script>
   import Header from '../../components/Header'
   export default {
-    data() {
-      return {}
-    },
     components: {
       Header
+    },
+    created () {
+      this.resetTop()
+    },
+    methods: {
+      resetTop () {
+        window.scrollTo(0, 0)
+      }
     }
-
   }
 </script>
+
 <style lang='stylus' rel='stylesheet/stylus' scoped>
   @import '../../common/stylus/mixins.styl'
   .personal
@@ -105,7 +111,7 @@
       width 100%
       height px2rem(60)
       left 0
-      bottom px2rem(-510)
+      bottom px2rem(60)
       text-align center
       .itemOther
         height px2rem(26)
