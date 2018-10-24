@@ -11,7 +11,7 @@
       </header>
       <list-scroll></list-scroll>
     </section>
-    <Banner></Banner>
+    <Banner/>
     <div class="explain">
       <div class="expItem">
         <i></i>

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 
-//路由懒加载
 const Home = () => import('../pages/Home')
 const Topic = () => import('../pages/Topic')
 const List = () => import('../pages/List')

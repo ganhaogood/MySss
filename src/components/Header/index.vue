@@ -11,7 +11,7 @@
             <i></i>
           </a>
         </div>
-        <div class="cart">
+        <div class="cart" @click="$router.push('/ShopCart')">
           <a href="javascript:;">
             <i></i>
           </a>
