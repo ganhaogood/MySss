@@ -182,12 +182,12 @@
           return result
         },
         set: function () {
-            let result = 1
-            this.time.forEach(item => {
-              result *= item
-            })
-            console.log(result)
-            return result
+          let result = 1
+          this.time.forEach(item => {
+            result *= item
+          })
+          console.log(result)
+          return result
         }
       }
     }
@@ -195,7 +195,7 @@
 </script>
 
 <style lang='stylus' rel='stylesheet/stylus' scoped>
-@import '../../common/stylus/mixins.styl'
+  @import '../../common/stylus/mixins.styl'
   .indexFloor
     background #ffffff
   .home

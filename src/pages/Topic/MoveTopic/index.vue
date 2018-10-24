@@ -3,8 +3,8 @@
     <div class="moveTit">
       <span class="inner">更多精彩</span>
     </div>
-    <a href="javascript:;" class="item" v-for="item in data" :key="item.topicId">
-      <img alt="img">
+    <a href="javascript:;" class="item" v-for="item in data" :key="index">
+      <img v-lazy="item.itemPicUrl" alt="img">
       <div class="desc">{{item.title}}</div>
     </a>
   </section>

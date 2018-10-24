@@ -1,13 +1,13 @@
 <template>
   <div class="topicList">
-    <swiper>
-      <swiper-slide>
+    <swiper :options="swiperOption" ref="mySwiper">
+      <swiper-slide v-for="(item,index) in data" :key="index">
         <a href="javascript:;">
-          <img alt="">
+          <img v-lazy="item.picUrl" alt="">
           <div class="tNum">
-            <span class="tNumCon">316篇文章</span>
+            <span class="tNumCon">{{item.articleCount}}</span>
           </div>
-          <div class="title">严选推荐</div>
+          <div class="title">{{item.title}}</div>
         </a>
       </swiper-slide>
     </swiper>

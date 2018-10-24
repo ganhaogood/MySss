@@ -2,15 +2,15 @@
   <div class="topicShow">
     <Title title="十点一刻"></Title>
     <div class="ShowSwiper">
-      <swiper>
-        <swiper-slide>
+      <swiper :options="swiperOptions" ref="mySwiper">
+        <swiper-slide v-for="item in data" :key="item.id">
           <a href="javascript:;">
             <div class="lineTitle">
               <span class="inner">今日话题</span>
             </div>
-            <div class="tsTitle">什么东西</div>
-            <div class="desc">哈哈</div>
-            <div class="joinInfo">呵呵人参与话题</div>
+            <div class="tsTitle">如果明天就要上班了</div>
+            <div class="desc">你会选择怎么写好代码</div>
+            <div class="joinInfo">666人拒绝上班</div>
           </a>
         </swiper-slide>
         <swiper-slide>
